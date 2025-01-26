@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<!-- saved from url=(0026)http://127.0.0.1:5500/html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Slider</title>
+    <style>
+        body {
+            background-color: gray;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .arrow {
+            width: 50px;
+            height: 50px;
+            background-color: white;
+            color: black;
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .frame {
+            width: 800px;
+            height: 500px;
+            overflow: hidden;
+            box-shadow: -1px 1px 10px rgba(0, 0, 0, 0.5);
+        }
+        .SLIDER {
+            display: flex;
+            transition: all 1s ease;
+        }
+        .image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="arrow left">&lt;</div>
+        <div class="frame">
+            <div class="SLIDER" style="transform: translateX(0px);">
+                <img src="./Image Slider_files/3056538.jpg" class="image">
+                <img src="./Image Slider_files/OIP.HzWM8msG8tK6-Q5sAGx1HgHaE8" class="image">
+                <img src="./Image Slider_files/OIP.Qp2set-R8ivg5ydcsZJUIAHaFN" class="image">
+                <img src="./Image Slider_files/Wyoming-Grand-Tetons-5572.jpg" class="image">
+            </div><!--end SLIDER-->
+        </div><!--end frame-->
+        <div class="arrow right">&gt;</div>
+    </div><!--end container-->
+
+    <script>
+        const left = document.querySelector('.left');
+        const right = document.querySelector('.right');
+        const SLIDER = document.querySelector('.SLIDER');
+        const images = document.querySelectorAll('.image');
+
+        let slideNumber = 1;
+        const length = images.length;
+
+        const nextSlide = () => {
+            SLIDER.style.transform = `translateX(-${slideNumber * 800}px)`;
+            slideNumber++;
+        };
+
+        const prevSlide = () => {
+            SLIDER.style.transform = `translateX(-${(slideNumber - 2) * 800}px)`;
+            slideNumber--;
+        };
+
+        const getFirstSlide = () => {
+            SLIDER.style.transform = `translateX(0px)`;
+            slideNumber = 1;
+        };
+
+        const getLastSlide = () => {
+            SLIDER.style.transform = `translateX(-${(length - 1) * 800}px)`;
+            slideNumber = length;
+        };
+
+        right.addEventListener('click', () => {
+            slideNumber < length ? nextSlide() : getFirstSlide();
+        });
+
+        left.addEventListener('click', () => {
+            slideNumber > 1 ? prevSlide() : getLastSlide();
+        });
+    </script>
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+
+
+</body></html>
